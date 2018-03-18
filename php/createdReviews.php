@@ -17,13 +17,21 @@
 
    $sql="SELECT* FROM review NATURAL JOIN restaurant WHERE user_id='{$_POST['user_id']}'";
    $result = mysqli_query($con,$sql);
+   if(mysqli_num_rows($result)==0){
+     echo "No Reviews Made";
+     exit;
+   }
+
    while($row = mysqli_fetch_array($result)) {
      echo $row['restName'] ."<br>";
      echo $row['rating']."<br>";
      echo $row['comment']."<br>";
-     echo '<td><a href="editReview.php?review_id=' . $review_id . '">Edit</a></td>';
+     $user_id=$_POST['user_id'];
+     $review_id=$row['review_id'];
+     echo "<td><a href='editReview.php?review_id={$review_id}&amp;user_id={$user_id}' />Edit</a></td>";
      echo "<br>";
-     echo '<td><a href="deleteReview.php?review_id=' . $review_id . '">Delete</a></td>';
+     echo "<td><a href='deleteReview.php?review_id={$review_id}&amp;user_id={$user_id}' />Delete</a></td>";
+     echo "<br>";
      echo "<br>";
   }
   ?>
