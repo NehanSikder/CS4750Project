@@ -14,12 +14,11 @@
      echo "Failed to connect to MySQL: " . mysqli_connect_error();
    }
 
-   if (isset($_GET['review_id']) && isset($_GET['user_id']) && is_numeric($_GET['review_id']) && is_numeric($_GET['user_id'])){
-     $review_id = $_GET['review_id'];
-     $sql="DELETE FROM review WHERE review_id='{$_GET['review_id']}'";
+   if (isset($_POST['review_id']) && isset($_POST['user_id']) && is_numeric($_POST['review_id']) && is_numeric($_POST['user_id'])){
+     $sql="DELETE FROM review WHERE review_id='{$_POST['review_id']}'";
      $result = mysqli_query($con,$sql);
 
-     $sql="SELECT* FROM review NATURAL JOIN restaurant WHERE user_id='{$_GET['user_id']}'";
+     $sql="SELECT* FROM review NATURAL JOIN restaurant WHERE user_id='{$_POST['user_id']}'";
      $result = mysqli_query($con,$sql);
 
      if(mysqli_num_rows($result)==0){
@@ -30,17 +29,29 @@
        echo $row['restName'] ."<br>";
        echo $row['rating']."<br>";
        echo $row['comment']."<br>";
-       $user_id=$_GET['user_id'];
-       $review_id=$_GET['review_id'];
-       echo "<td><a href='editReview.php?review_id={$review_id}&amp;user_id={$user_id}' />Edit</a></td>";
-       echo "<br>";
-       echo "<td><a href='deleteReview.php?review_id={$review_id}&amp;user_id={$user_id}' />Delete</a></td>";
-       echo "<br>";
+       $user_id=$_POST['user_id'];
+       $review_id=$_POST['review_id'];
+       // echo "<td><a href='editReview.php?review_id={$review_id}&amp;user_id={$user_id}' />Edit</a></td>";
+       // echo "<br>";
+       // echo "<td><a href='deleteReview.php?review_id={$review_id}&amp;user_id={$user_id}' />Delete</a></td>";
+       // echo "<br>";
+       // echo "<br>";
+       echo '<form action="editReview.php" method="post">
+            <input type="hidden" name="review_id" value="'.$review_id.'">
+            <input type="hidden" name="user_id" value="'.$user_id.'">
+            <input type="submit" value="Edit" name="Edit">
+            </form>';
+       echo '<form action="deleteReview.php" method="post">
+            <input type="hidden" name="review_id" value="'.$review_id.'">
+            <input type="hidden" name="user_id" value="'.$user_id.'">
+            <input type="submit" value="Delete" name="Delete">
+            </form>';
        echo "<br>";
    }
   }
    else{
      echo "Invalid Access";
+     exit;
    }
 
   ?>
