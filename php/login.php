@@ -97,7 +97,8 @@
   <form action="profile.php" method="post">
     <input type="hidden" name="userName" value="<?php echo $userName;?>">
     <input type="hidden" name="password" value="<?php echo $password;?>">
-    <button type="submit" value="Profile">Edit Profile</button>
+    <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
+    <button type="submit" value="Profile">Profile</button>
   </form>
    <form action="logout.php" method="post">
     <input type="hidden" name="userName" value="<?php echo $userName;?>">
