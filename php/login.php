@@ -33,7 +33,7 @@
   $stmt->fetch();
   if($stmt->num_rows>0){
     echo "<h1>";
-    echo "Welcome ";
+    echo "Welcome, ";
     echo $name;
     echo "</h1>";
     echo "<br>";
@@ -97,7 +97,7 @@
   <form action="profile.php" method="post">
     <input type="hidden" name="userName" value="<?php echo $userName;?>">
     <input type="hidden" name="password" value="<?php echo $password;?>">
-    <button type="submit" value="Profile">Profile</button>
+    <button type="submit" value="Profile">Edit Profile</button>
   </form>
    <form action="logout.php" method="post">
     <input type="hidden" name="userName" value="<?php echo $userName;?>">
