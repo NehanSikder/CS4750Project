@@ -30,7 +30,7 @@
        echo $row['rating']."<br>";
        echo $row['comment']."<br>";
        $user_id=$_POST['user_id'];
-       $review_id=$_POST['review_id'];
+       $review_id=$row['review_id'];
        // echo "<td><a href='editReview.php?review_id={$review_id}&amp;user_id={$user_id}' />Edit</a></td>";
        // echo "<br>";
        // echo "<td><a href='deleteReview.php?review_id={$review_id}&amp;user_id={$user_id}' />Delete</a></td>";
