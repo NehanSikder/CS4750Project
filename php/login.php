@@ -28,7 +28,7 @@
   $password=$_POST["password"];
   $stmt->bind_param("ss",$userName,$password);
   $stmt->execute();
-  $stmt->bind_result($user_id, $user_name, $password, $name, $age, $email);
+  $stmt->bind_result($user_id, $user_name, $password, $name, $age, $email, $admin);
   $stmt->store_result();
   $stmt->fetch();
   if($stmt->num_rows>0){
