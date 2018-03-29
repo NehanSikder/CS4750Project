@@ -34,11 +34,11 @@
      echo "<br>";
      echo '<form action="editProfile.php" method="post">
           <input type="hidden" name="user_id" value="'.$user_id.'">
-          <input type="submit" value="Edit" name="Edit">
+          <input type="submit" value="Edit Profile" name="Edit Profile">
           </form>';
-     echo '<form name="deleteProfile.php" method="post">
+     echo '<form action="deleteProfile.php" method="post">
           <input type="hidden" name="user_id" value="'.$user_id.'">
-          <input type="submit" value="Delete" name="Delete">
+          <input type="submit" value="Delete Profile" name="Delete Profile">
           </form>';
      echo "<br>";
 
