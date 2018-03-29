@@ -12,13 +12,25 @@
      echo "Failed to connect to MySQL: " . mysqli_connect_error();
    }
 
+   if(isset($_POST['name']) || isset($_POST['email']) || isset($_POST['age'])){
+     $user_id=$_POST['user_id'];
+     $name=$_POST['name'];
+     $age=$_POST['age'];
+     $email=$_POST['email'];
+     $stmt = $con->prepare("UPDATE user SET name=?, age=?, email=? WHERE user_id=?");
+     $stmt->bind_param("sisi",$name, $age, $email, $user_id);
+     $stmt->execute();
+   }
+
+
 
    $sql="SELECT* FROM user WHERE user_id='{$_POST['user_id']}'";
    $result = mysqli_query($con,$sql);
+   $user_id=$_POST['user_id'];
    while($row = mysqli_fetch_array($result)) {
-     echo $row['name'] ."<br>";
-     echo $row['age'] ."<br>";
-     echo $row['email']."<br>";
+     echo "Name: ".$row['name'] ."<br>";
+     echo "Age: ".$row['age'] ."<br>";
+     echo "Email: ".$row['email']."<br>";
      echo "<br>";
      echo '<form action="editProfile.php" method="post">
           <input type="hidden" name="user_id" value="'.$user_id.'">
