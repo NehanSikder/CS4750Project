@@ -82,6 +82,7 @@
   <form action="createdRestaurants.php" method="post">
     <input type="hidden" name="userName" value="<?php echo $userName;?>">
     <input type="hidden" name="password" value="<?php echo $password;?>">
+    <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
     <button type="submit" value="Restaurants Made">Restaurants Made</button>
   </form>
   <form action="addRestaurants.php" method="post">

@@ -38,7 +38,7 @@
           </form>';
      echo '<form action="deleteProfile.php" method="post">
           <input type="hidden" name="user_id" value="'.$user_id.'">
-          <input type="submit" value="Delete Profile" name="Delete Profile">
+          <input type="submit" value="Delete Account" name="Delete Account">
           </form>';
      echo "<br>";
 
