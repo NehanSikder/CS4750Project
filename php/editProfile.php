@@ -26,6 +26,9 @@
       Name: <input type= "text" name="name" required> <br>
       Age: <input type= "number" name="age" required> <br>
       Email: <input type= "text" name="email" required> <br>
+      Primary Phone Number: <input type= "text" name="phone_number" required> <br>
+      Second Phone Number: <input type= "text" name="phone_number2"> <br>
+      Third Phone Number: <input type= "text" name="phone_number3"> <br>
       <br>
       <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
       <input type="submit" value="Submit">
