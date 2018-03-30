@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>Edit Review</title>
-  <h1>Edit Review</h1>
+  <title>Edit Restaurant</title>
+  <h1>Edit Restaurant</h1>
 </head>
 <body>
   <?php
@@ -24,9 +24,17 @@
   ?>
 
     <form action="createdRestaurants.php" method="post">
-      Restaurant Name: <input type= "text" name="comment"> <br>
+      Restaurant Name: <input type= "text" name="restName"><br>
+      Hours: <input type= "text" name="hours"><br>
+      Phone Number 1: <input type= "text" name="phone1"><br>
+      Phone Number 2: <input type= "text" name="phone2"><br>
+      Phone Number 3: <input type= "text" name="phone3"><br>
+      URL 1: <input type= "text" name="url1"><br>
+      URL 2: <input type= "text" name="url2"><br>
+      URL 3: <input type= "text" name="url3"><br>
       <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
       <input type="hidden" name="restaurant_id" value="<?php echo $review_id;?>">
+      <input type="hidden" name="update" value="update">
       <input type="submit" value="Submit">
     </form>
 
