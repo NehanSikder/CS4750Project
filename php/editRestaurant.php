@@ -26,6 +26,10 @@
     <form action="createdRestaurants.php" method="post">
       Restaurant Name: <input type= "text" name="restName"><br>
       Hours: <input type= "text" name="hours"><br>
+      Street: <input type= "text" name="street"><br>
+      City: <input type= "text" name="city"><br>
+      State: <input type= "text" name="state"><br>
+      Zip Code: <input type= "text" name="zip"><br>
       Phone Number 1: <input type= "text" name="phone1"><br>
       Phone Number 2: <input type= "text" name="phone2"><br>
       Phone Number 3: <input type= "text" name="phone3"><br>

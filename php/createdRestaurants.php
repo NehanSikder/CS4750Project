@@ -23,6 +23,10 @@
      $restaurant_id=$_POST['restaurant_id'];
      $restName=$_POST['restName'];
      $hours=$_POST['hours'];
+     $street=$_POST['street'];
+     $city=$_POST['city'];
+     $state=$_POST['state'];
+     $zip=$_POST['zip'];
      $phone1=$_POST['phone1'];
      $phone2=$_POST['phone2'];
      $phone3=$_POST['phone3'];
@@ -37,6 +41,26 @@
      if(!empty($hours)){
        $stmt = $con->prepare("UPDATE restaurant SET hours=? WHERE restaurant_id=?");
        $stmt->bind_param("si",$hours, $restaurant_id);
+       $stmt->execute();
+     }
+     if(!empty($street)){
+       $stmt = $con->prepare("UPDATE restaurant_address SET street=? WHERE restaurant_id=?");
+       $stmt->bind_param("si",$street, $restaurant_id);
+       $stmt->execute();
+     }
+     if(!empty($city)){
+       $stmt = $con->prepare("UPDATE restaurant_address SET city=? WHERE restaurant_id=?");
+       $stmt->bind_param("si",$city, $restaurant_id);
+       $stmt->execute();
+     }
+     if(!empty($state)){
+       $stmt = $con->prepare("UPDATE restaurant_address SET state=? WHERE restaurant_id=?");
+       $stmt->bind_param("si",$state, $restaurant_id);
+       $stmt->execute();
+     }
+     if(!empty($zip)){
+       $stmt = $con->prepare("UPDATE restaurant_address SET zip=? WHERE restaurant_id=?");
+       $stmt->bind_param("si",$zip, $restaurant_id);
        $stmt->execute();
      }
      if(!empty($phone1)){
@@ -89,7 +113,7 @@
      }
    }
 
-   $sql1="SELECT* FROM can_edit NATURAL JOIN restaurant WHERE user_id='{$_POST['user_id']}'";
+   $sql1="SELECT* FROM can_edit NATURAL JOIN restaurant NATURAL JOIN restaurant_address WHERE user_id='{$_POST['user_id']}'";
    $result1 = mysqli_query($con,$sql1);
    if(mysqli_num_rows($result1)==0){
      echo "No Restaurants Made";
@@ -98,6 +122,10 @@
    while($row = mysqli_fetch_array($result1)) {
      echo "Restaurant Name: ". $row['restName'] ."<br>";
      echo "Hours: ". $row['hours']."<br>";
+     echo "Street: ". $row['street']."<br>";
+     echo "City: ". $row['city']."<br>";
+     echo "State: ". $row['state']."<br>";
+     echo "Zip Code: ". $row['zip']."<br>";
      $sql2="SELECT* FROM can_edit NATURAL JOIN restaurant_phone WHERE user_id='{$_POST['user_id']}' and restaurant_id='{$row['restaurant_id']}'";
      $result2 = mysqli_query($con,$sql2);
      $row_number = mysqli_fetch_array($result2);
@@ -151,6 +179,11 @@
 
   }
   ?>
+
+  <form action="exportRestaurants.php" method="post">
+    <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
+    <input type="submit" value="Export Data">
+  </form>
 
 </body>
 </html>
