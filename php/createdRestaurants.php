@@ -36,7 +36,7 @@
   $stmt->store_result();
   $stmt->fetch();
   if($stmt->num_rows>0){
-  
+
  }else{
     echo "Incorrect username or password";
     exit;
@@ -216,8 +216,20 @@
      }
    }
 
-   $sql1="SELECT* FROM can_edit NATURAL JOIN restaurant NATURAL JOIN restaurant_address WHERE user_id='{$_POST['user_id']}'";
+   $sql1="SELECT* FROM user WHERE user_id='{$_POST['user_id']}'";
    $result1 = mysqli_query($con,$sql1);
+   $row = mysqli_fetch_array($result1);
+   $admin=$row['admin'];
+   if($admin==0){
+     $sql1="SELECT* FROM can_edit NATURAL JOIN restaurant NATURAL JOIN restaurant_address WHERE user_id='{$_POST['user_id']}'";
+     $result1 = mysqli_query($con,$sql1);
+   }
+   else{
+     $sql1="SELECT* FROM restaurant NATURAL JOIN restaurant_address";
+     $result1 = mysqli_query($con,$sql1);
+   }
+
+
    if(mysqli_num_rows($result1)==0){
      echo "No Restaurants Made";
      exit;
@@ -230,6 +242,9 @@
      echo "State: ". $row['state']."<br>";
      echo "Zip Code: ". $row['zip']."<br>";
      $sql2="SELECT* FROM can_edit NATURAL JOIN restaurant_phone WHERE user_id='{$_POST['user_id']}' and restaurant_id='{$row['restaurant_id']}'";
+     if($admin!=0){
+       $sql2="SELECT* FROM can_edit NATURAL JOIN restaurant_phone WHERE restaurant_id='{$row['restaurant_id']}'";
+     }
      $result2 = mysqli_query($con,$sql2);
      $row_number = mysqli_fetch_array($result2);
      echo "Phone Number: ".$row_number['phone_number']."<br>";
@@ -246,6 +261,9 @@
      // }
      echo "Average Rating: ". $row['avg_rating']."<br>";
      $sql3="SELECT* FROM can_edit NATURAL JOIN restaurant_photo WHERE user_id='{$_POST['user_id']}' and restaurant_id='{$row['restaurant_id']}'";
+     if($admin!=0){
+       $sql3="SELECT* FROM can_edit NATURAL JOIN restaurant_photo WHERE restaurant_id='{$row['restaurant_id']}'";
+     }
      $result3 = mysqli_query($con,$sql3);
      if(mysqli_num_rows($result3)!=0){
        $row_url = mysqli_fetch_array($result3);
@@ -267,6 +285,10 @@
      // }
      $restaurant_id=$row['restaurant_id'];
      $user_id=$row['user_id'];
+     echo '<form action="viewMoreRestaurantInfo.php" method="post">
+          <input type="hidden" name="restaurant_id" value="'.$restaurant_id.'">
+          <input type="submit" value="View More" name="View More">
+          </form>';
      echo '<form action="editRestaurant.php" method="post">
           <input type="hidden" name="restaurant_id" value="'.$restaurant_id.'">
           <input type="hidden" name="user_id" value="'.$user_id.'">
