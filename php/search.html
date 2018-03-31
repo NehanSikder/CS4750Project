@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Search Restaurant</title>
+  <script src="../js/js/jquery-1.6.2.min.js" type="text/javascript"></script> 
+  <script src="../js/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+  <script>
+	$(document).ready(function() {
+		$( "#input" ).change(function() {
+			$.ajax({
+				url: 'searchRestaurants.php', 
+				data: {search: $( "#input" ).val()},
+				success: function(res){
+					$('#result').html(res);
+				}
+			});
+		});
+	});
+	</script>
+</head>
+  <h1>
+    Search Restaurants
+  </h1>
+<body>
+	<input class="xlarge" id="input" type="search" size="30" placeholder="Restaurant Name Contains"/>
+	<br/>
+	<br/>
+  <div id="result">Search Result</div>
+</body>
+</html>
