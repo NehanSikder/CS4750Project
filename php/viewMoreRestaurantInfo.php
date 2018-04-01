@@ -106,7 +106,8 @@
 
 
   <div class="container">
-  <h1>Restaurant Information</h1>
+  <h1>Restaurant Page</h1>
+  <h3>Basic Information</h3>
 
   <?php
    include_once("./library.php"); // To connect to the database
@@ -117,7 +118,7 @@
      echo "Failed to connect to MySQL: " . mysqli_connect_error();
    }
 
-   $sql1="SELECT* FROM can_edit NATURAL JOIN restaurant NATURAL JOIN restaurant_address WHERE user_id='{$_POST['user_id']}'";
+   $sql1="SELECT* FROM restaurant NATURAL JOIN restaurant_address WHERE restaurant_id='{$_POST['restaurant_id']}'";
    $result1 = mysqli_query($con,$sql1);
    while($row = mysqli_fetch_array($result1)) {
      echo "Restaurant Name: ". $row['restName'] ."<br>";
@@ -154,10 +155,45 @@
          echo "Other URL: ".$row_url['url3']."<br>";
        }
      }
-
-
   }
   ?>
+  <h3>Menu</h3>
+  <?php
+    $sql="SELECT * FROM serves NATURAL JOIN item WHERE restaurant_id='{$_POST['restaurant_id']}'";
+    $result= mysqli_query($con, $sql);
+    if(mysqli_num_rows($result)==0){
+      echo "No Items Posted";
+    }
+    else{
+      while($row = mysqli_fetch_array($result)) {
+        echo "Item Name: ".$row['name']."<br>";
+        echo "Description: ".$row['description']."<br>";
+        echo "Price: $".$row['price']."<br>";
+        echo "<br>";
+      }
+    }
+   ?>
+
+   <h3>Recent Comments</h3>
+   <?php
+      $sql="SELECT * FROM review WHERE restaurant_id='{$_POST['restaurant_id']}' ORDER BY review_id DESC LIMIT 5";
+      $result= mysqli_query($con, $sql);
+      if(mysqli_num_rows($result)==0){
+        echo "No Comments";
+      }
+      else{
+        while($row = mysqli_fetch_array($result)) {
+          $query="SELECT * FROM review NATURAL JOIN user WHERE review_id='{$row['review_id']}'";
+          $query_result= mysqli_query($con, $query);
+          $user=mysqli_fetch_array($query_result);
+          echo "User's Name: ".$user['name']."<br>";
+          echo "Comment: ".$row['comment']."<br>";
+          echo "Rating: ".$row['rating']."<br>";
+          echo "<br>";
+        }
+      }
+   ?>
+
 </div>
 </body>
 </html>

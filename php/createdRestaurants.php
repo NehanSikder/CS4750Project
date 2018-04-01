@@ -290,6 +290,8 @@
      }
      echo '<form action="viewMoreRestaurantInfo.php" method="post">
           <input type="hidden" name="restaurant_id" value="'.$restaurant_id.'">
+          <input type="hidden" name="userName" value="'.$_POST['userName'].'">
+          <input type="hidden" name="password" value="'.$_POST['password'].'">
           <input type="submit" value="View More" name="View More">
           </form>';
      echo '<form action="editRestaurant.php" method="post">
