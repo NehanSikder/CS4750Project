@@ -15,6 +15,8 @@
     {
       echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
+    $userName=$_POST["userName"];
+    $password=$_POST["password"];
     $sql="SELECT* FROM restaurant NATURAL JOIN can_edit NATURAL JOIN restaurant_address NATURAL JOIN restaurant_phone NATURAL JOIN restaurant_photo WHERE user_id='{$_POST['user_id']}'";
 
     $json_array = array();
@@ -51,8 +53,11 @@
 
   ?>
 
+
     <form action="createdRestaurants.php" method="post">
       <input type="hidden" name="user_id" value="<?php echo $_POST['user_id'];?>">
+      <input type="hidden" name="userName" value="<?php echo $userName;?>">
+      <input type="hidden" name="password" value="<?php echo $password;?>">
       <input type="submit" value="Return">
     </form>
 

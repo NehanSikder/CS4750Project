@@ -41,11 +41,15 @@
        echo '<form action="editReview.php" method="post">
             <input type="hidden" name="review_id" value="'.$review_id.'">
             <input type="hidden" name="user_id" value="'.$user_id.'">
+            <input type="hidden" name="userName" value="'.$_POST['userName'].'">
+            <input type="hidden" name="password" value="'.$_POST['password'].'">
             <input type="submit" value="Edit" name="Edit">
             </form>';
        echo '<form action="deleteReview.php" method="post">
             <input type="hidden" name="review_id" value="'.$review_id.'">
             <input type="hidden" name="user_id" value="'.$user_id.'">
+            <input type="hidden" name="userName" value="'.$_POST['userName'].'">
+            <input type="hidden" name="password" value="'.$_POST['password'].'">
             <input type="submit" value="Delete" name="Delete">
             </form>';
        echo "<br>";

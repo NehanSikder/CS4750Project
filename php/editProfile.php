@@ -21,6 +21,8 @@
    }
    if (isset($_POST['user_id'])){
      $user_id=$_POST['user_id'];
+     $userName=$_POST["userName"];
+     $password=$_POST["password"];
   }
    else{
      echo "Invalid Access";
@@ -37,6 +39,8 @@
       Third Phone Number: <input class="form-control" type= "text" name="phone_number3"> <br>
       <br>
       <input class="form-control" type="hidden" name="user_id" value="<?php echo $user_id;?>">
+      <input class="form-control" type="hidden" name="userName" value="<?php echo $userName;?>">
+      <input class="form-control" type="hidden" name="password" value="<?php echo $password;?>">
       <button name="submit" value="submit" class="btn btn-danger">Submit</button>
     </form>
 </div>

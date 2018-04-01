@@ -18,6 +18,8 @@
    if (isset($_POST['review_id']) && isset($_POST['user_id']) && is_numeric($_POST['review_id']) && is_numeric($_POST['user_id'])){
      $review_id=$_POST['review_id'];
      $user_id=$_POST['user_id'];
+     $userName=$_POST["userName"];
+     $password=$_POST["password"];
   }
    else{
      echo "Invalid Access";
@@ -49,6 +51,8 @@
 
       <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
       <input type="hidden" name="review_id" value="<?php echo $review_id;?>">
+      <input type="hidden" name="userName" value="<?php echo $userName;?>">
+      <input type="hidden" name="password" value="<?php echo $password;?>">
       <input type="submit" value="Submit">
     </form>
 

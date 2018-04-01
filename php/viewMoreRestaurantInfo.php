@@ -1,12 +1,14 @@
+<!DOCTYPE HTML>
+<html>
 <head>
-  <title>Profile</title>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <link rel="stylesheet" href="../stylesheet.css">
+  <title>Restaurant Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../stylesheet.css">
 </head>
 <body>
-  <?php
+      <?php
    include_once("./library.php"); // To connect to the database
    $con = new mysqli($SERVER, $USERNAME, $PASSWORD, $DATABASE);
    // Check connection
@@ -43,7 +45,6 @@
 
 
 ?>
-<!-- Navbar -->
 <!-- Navbar -->
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -102,9 +103,10 @@
   </div>
 </nav>
 
-<div class="container">
-  <h1>Profile</h1>
 
+
+  <div class="container">
+  <h1>Restaurant Information</h1>
 
   <?php
    include_once("./library.php"); // To connect to the database
@@ -115,82 +117,47 @@
      echo "Failed to connect to MySQL: " . mysqli_connect_error();
    }
 
-   if(isset($_POST['name']) || isset($_POST['email']) || isset($_POST['age']) || isset($_POST['phone_number'])){
-     $user_id=$_POST['user_id'];
-     $name=$_POST['name'];
-     $age=$_POST['age'];
-     $email=$_POST['email'];
-     $stmt = $con->prepare("UPDATE user SET name=?, age=?, email=? WHERE user_id=?");
-     $stmt->bind_param("sisi",$name, $age, $email, $user_id);
-     $stmt->execute();
-
-     $phone_number=$_POST['phone_number'];
-     $phone_number2=$_POST['phone_number2'];
-     $phone_number3=$_POST['phone_number3'];
-     if(!empty($phone_number)){
-       $sql="SELECT* FROM user_phone WHERE user_id='{$_POST['user_id']}'";
-       $result = mysqli_query($con,$sql);
-       if(mysqli_num_rows($result)==0){
-         $stmt = $con->prepare("INSERT INTO user_phone (phone_number,user_id) VALUES (?, ?)");
-         $stmt->bind_param("si",$phone_number, $user_id);
-         $stmt->execute();
-       }
-       else{
-         $stmt = $con->prepare("UPDATE user_phone SET phone_number=? WHERE user_id=?");
-         $stmt->bind_param("si",$phone_number, $user_id);
-         $stmt->execute();
-       }
-     }
-     if(!empty($phone_number2)){
-         $stmt = $con->prepare("UPDATE user_phone SET phone_number2=? WHERE user_id=?");
-         $stmt->bind_param("si",$phone_number2, $user_id);
-         $stmt->execute();
-     }
-     if(!empty($phone_number3)){
-         $stmt = $con->prepare("UPDATE user_phone SET phone_number3=? WHERE user_id=?");
-         $stmt->bind_param("si",$phone_number3, $user_id);
-         $stmt->execute();
-     }
-
-   }
-
-
-
-   $sql="SELECT* FROM user WHERE user_id='{$_POST['user_id']}'";
-   $result = mysqli_query($con,$sql);
-   $user_id=$_POST['user_id'];
-   while($row = mysqli_fetch_array($result)) {
-     echo "Name: ".$row['name'] ."<br>";
-     echo "Age: ".$row['age'] ."<br>";
-     echo "Email: ".$row['email']."<br>";
-     $sql2="SELECT* FROM user NATURAL JOIN user_phone WHERE user_id='{$_POST['user_id']}'";
+   $sql1="SELECT* FROM can_edit NATURAL JOIN restaurant NATURAL JOIN restaurant_address WHERE user_id='{$_POST['user_id']}'";
+   $result1 = mysqli_query($con,$sql1);
+   while($row = mysqli_fetch_array($result1)) {
+     echo "Restaurant Name: ". $row['restName'] ."<br>";
+     echo "Hours: ". $row['hours']."<br>";
+     echo "Street: ". $row['street']."<br>";
+     echo "City: ". $row['city']."<br>";
+     echo "State: ". $row['state']."<br>";
+     echo "Zip Code: ". $row['zip']."<br>";
+     $sql2="SELECT* FROM restaurant_phone WHERE restaurant_id='{$row['restaurant_id']}'";
      $result2 = mysqli_query($con,$sql2);
      $row_number = mysqli_fetch_array($result2);
-     echo "Primary Phone Number: ".$row_number['phone_number']."<br>";
+     echo "Phone Number: ".$row_number['phone_number']."<br>";
      if(!empty($row_number['phone_number2'])){
-       echo "Second Phone Number: ".$row_number['phone_number2']."<br>";
+       echo "Alternative Number: ".$row_number['phone_number2']."<br>";
      }
      if(!empty($row_number['phone_number3'])){
-       echo "Third Phone Number: ".$row_number['phone_number3']."<br>";
+       echo "Alternative Number: ".$row_number['phone_number3']."<br>";
      }
-     echo "<br>";
-     echo '<form action="editProfile.php" method="post">
-          <input type="hidden" name="user_id" value="'.$user_id.'">
-          <input type="hidden" name="userName" value="'.$userName.'">
-          <input type="hidden" name="password" value="'.$password.'">
-          <button class="btn btn-warning" type="submit" value="Edit Profile">Edit Profile</button>
-          </form>';
-     echo '<form action="deleteProfile.php" method="post">
-          <input type="hidden" name="user_id" value="'.$user_id.'">
-          <button class="btn btn-danger" type="submit" value="Delete Account">Delete Account</button>
+     // $counter=1;
+     // while($row_number = mysqli_fetch_array($result2)) {
+     //   echo "Phone Number ".$counter. ": ". $row_number['phone_number']."<br>";
+     //   $counter++;
+     // }
+     echo "Average Rating: ". $row['avg_rating']."<br>";
+     $sql3="SELECT* FROM restaurant_photo WHERE restaurant_id='{$row['restaurant_id']}'";
+     $result3 = mysqli_query($con,$sql3);
+     if(mysqli_num_rows($result3)!=0){
+       $row_url = mysqli_fetch_array($result3);
+       echo "URL: ".$row_url['url']."<br>";
+       if(!empty($row_url['url2'])){
+         echo "Other URL: ".$row_url['url2']."<br>";
+       }
+       if(!empty($row_url['url3'])){
+         echo "Other URL: ".$row_url['url3']."<br>";
+       }
+     }
 
-          </form>';
-     echo "<br>";
 
   }
   ?>
-  </div>
-
-
+</div>
 </body>
 </html>

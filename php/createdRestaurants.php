@@ -285,6 +285,9 @@
      // }
      $restaurant_id=$row['restaurant_id'];
      $user_id=$row['user_id'];
+     if($admin!=0){
+       $user_id=$_POST['user_id'];
+     }
      echo '<form action="viewMoreRestaurantInfo.php" method="post">
           <input type="hidden" name="restaurant_id" value="'.$restaurant_id.'">
           <input type="submit" value="View More" name="View More">
@@ -292,11 +295,15 @@
      echo '<form action="editRestaurant.php" method="post">
           <input type="hidden" name="restaurant_id" value="'.$restaurant_id.'">
           <input type="hidden" name="user_id" value="'.$user_id.'">
+          <input type="hidden" name="userName" value="'.$_POST['userName'].'">
+          <input type="hidden" name="password" value="'.$_POST['password'].'">
           <input type="submit" value="Edit" name="Edit">
           </form>';
      echo '<form action="createdRestaurants.php" method="post">
           <input type="hidden" name="restaurant_id" value="'.$restaurant_id.'">
           <input type="hidden" name="user_id" value="'.$user_id.'">
+          <input type="hidden" name="userName" value="'.$_POST['userName'].'">
+          <input type="hidden" name="password" value="'.$_POST['password'].'">
           <input type="hidden" name="delete" value="delete">
           <input type="submit" value="Delete" name="Delete">
           </form>';
@@ -307,6 +314,8 @@
 
   <form action="exportRestaurants.php" method="post">
     <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
+    <input type="hidden" name="userName" value="<?php echo $userName;?>">
+    <input type="hidden" name="password" value="<?php echo $password;?>">
     <input type="submit" value="Export Data">
   </form>
 </div>
