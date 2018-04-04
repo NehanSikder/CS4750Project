@@ -194,6 +194,7 @@
 
    if(mysqli_num_rows($result1)==0){
      echo "No Restaurants Made";
+     echo "test ".$_POST['user_id'];
      exit;
    }
    while($row = mysqli_fetch_array($result1)) {
