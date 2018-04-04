@@ -6,13 +6,36 @@
  {
  echo "Failed to connect to MySQL: " . mysqli_connect_error();
  }
+
+
+// check if username is already taken
+ $userName = $_POST['userName'];
+ $signUpURL = '/signUp.html';
+//call stored proc to get list of all usernames
+  $result = mysqli_query($con, 
+     "CALL get_all_usernames()") or die("Stored Procedure Query failed: " . mysqli_error());
+  //loop the result set
+  while ($row = mysqli_fetch_array($result)){   
+      if ($row[0] ==  $userName) {
+     	echo '<script language="javascript">';
+		echo 'alert("Username: '.$userName.' already taken");';
+		echo 'window.location = "'.$signUpURL.'";';
+		echo '</script>';
+		exit;
+      }
+  }
+
 // Check if required fields have been submitted
 $required_fields = array('userName', 'password', 'name');
-$error = false;
+
 foreach($required_fields as $field) {
   if (empty($_POST[$field])) {
-  	echo 'Need to input '.$field;
-  	echo "<br>";
+  	// echo 'Need to input '.$field;
+  	// echo "<br>";
+  	echo '<script language="javascript">';
+		echo 'alert("Need to input: '.$field.' to signUp");';
+	echo 'window.location = "'.$signUpURL.'";';
+	echo '</script>';
   	exit;
   }
 }
