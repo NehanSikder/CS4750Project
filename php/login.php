@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../stylesheet.css">
 </head>
 <body>
-  <?php
+ <?php
    include_once("./library.php"); // To connect to the database
    $con = new mysqli($SERVER, $USERNAME, $PASSWORD, $DATABASE);
    // Check connection
@@ -26,8 +26,6 @@
       exit;
     }
   }
-
-
   $stmt = $con->prepare("SELECT * FROM user WHERE user_name = ? and password = ?");
   $userName=$_POST["userName"];
   $password=$_POST["password"];
@@ -37,18 +35,15 @@
   $stmt->store_result();
   $stmt->fetch();
   if($stmt->num_rows>0){
-   
- }
-
-  else{
+  
+ }else{
     echo "Incorrect username or password";
     exit;
   }
   $stmt->close();
-
-
 ?>
-<nav class="navbar navbar-expand-lg navbar-inverse">
+<!-- Navbar -->
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Restaurant Review</a>
@@ -56,31 +51,31 @@
     <ul class="nav navbar-nav">
       <li>
           <form class="navbar-form navbar-left" action="login.php" method="post">
-            <input type="hidden" name="userName" value="<?php echo $_POST['userName'];?>">
-            <input type="hidden" name="password" value="<?php echo $_POST['password'];?>">
+            <input type="hidden" name="userName" value="<?php echo $userName;?>">
+            <input type="hidden" name="password" value="<?php echo $password;?>">
             <button class="btn btn-link" type="submit" value="Home">Home</button>
           </form>
       </li>
       <li>
         <form class="navbar-form navbar-left" action="createdReviews.php" method="post">
-          <input type="hidden" name="userName" value="<?php echo $_POST['userName'];?>">
-          <input type="hidden" name="password" value="<?php echo $_POST['password'];?>">
-          <input type="hidden" name="user_id" value="<?php echo $_POST['user_id'];?>">
+          <input type="hidden" name="userName" value="<?php echo $userName;?>">
+          <input type="hidden" name="password" value="<?php echo $password;?>">
+          <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
           <button class="btn btn-link" type="submit" value="Reviews Posted">Reviews Posted</button>
         </form>
       </li>
       <li>
          <form class="navbar-form navbar-left" action="createdRestaurants.php" method="post">
-          <input type="hidden" name="userName" value="<?php echo $_POST['userName'];?>">
-          <input type="hidden" name="password" value="<?php echo $_POST['password'];?>">
-          <input type="hidden" name="user_id" value="<?php echo $_POST['user_id'];?>">
+          <input type="hidden" name="userName" value="<?php echo $userName;?>">
+          <input type="hidden" name="password" value="<?php echo $password;?>">
+          <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
           <button class="btn btn-link" type="submit" value="Restaurants Made">Restaurants Made</button>
         </form>
       </li>
       <li>
         <form class="navbar-form navbar-left" action="search.php" method="post">
-          <input type="hidden" name="userName" value="<?php echo $_POST['userName'];?>">
-          <input type="hidden" name="password" value="<?php echo $_POST['password'];?>">
+          <input type="hidden" name="userName" value="<?php echo $userName;?>">
+          <input type="hidden" name="password" value="<?php echo $password;?>">
           <button class="btn btn-link" type="submit" value="Search">Search</button>
         </form>
       </li>
@@ -88,22 +83,23 @@
     <ul class="nav navbar-nav navbar-right">
       <li>
         <form class="navbar-form navbar-right" action="profile.php" method="post">
-          <input type="hidden" name="userName" value="<?php echo $_POST['userName'];?>">
-          <input type="hidden" name="password" value="<?php echo $_POST['password'];?>">
-          <input type="hidden" name="user_id" value="<?php echo $_POST['user_id']?>">
+          <input type="hidden" name="userName" value="<?php echo $userName;?>">
+          <input type="hidden" name="password" value="<?php echo $password;?>">
+          <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
           <button class="btn btn-link" type="submit" value="Profile">Profile</button>
         </form>
       <li>
       </li>
          <form class="navbar-form navbar-right" action="logout.php" method="post">
-          <input type="hidden" name="userName" value="<?php echo $_POST['userName'];?>">
-          <input type="hidden" name="password" value="<?php echo $_POST['password'];?>">
+          <input type="hidden" name="userName" value="<?php echo $userName;?>">
+          <input type="hidden" name="password" value="<?php echo $password;?>">
           <button style = 'margin-right: 5px;' class="btn btn-link" type="submit" value="Profile">Logout</button>
         </form>
       </li>
     </ul>
   </div>
 </nav>
+
 
 <div class="container">
 
@@ -180,6 +176,7 @@
              <form action="addReviews.php" method="post">
               <input type="hidden" name="userName" value="<?php echo $userName;?>">
               <input type="hidden" name="password" value="<?php echo $password;?>">
+              <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
               <button class="btn btn-success btn-lg btn-block"  type="submit" value="Add Reviews">Add Reviews</button>
             </form>
         </div>

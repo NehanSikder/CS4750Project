@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>Edit Review</title>
+  <title>Add Review</title>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -66,18 +66,20 @@
 </nav>
 
 <div class="container">
- <h1>Edit Review</h1>
+ <h1>Add Review</h1>
 
-  <?php
-   include_once("./library.php"); // To connect to the database
-   $con = new mysqli($SERVER, $USERNAME, $PASSWORD, $DATABASE);
-   // Check connection
-   if (mysqli_connect_errno())
-   {
-     echo "Failed to connect to MySQL: " . mysqli_connect_error();
-   }
-   if (isset($_POST['review_id']) && isset($_POST['user_id']) && is_numeric($_POST['review_id']) && is_numeric($_POST['user_id'])){
-     $review_id=$_POST['review_id'];
+ <?php
+   ob_start();
+
+ include_once("./library.php"); // To connect to the database
+ $con = new mysqli($SERVER, $USERNAME, $PASSWORD, $DATABASE);
+ // Check connection
+ if (mysqli_connect_errno())
+ {
+ echo "Failed to connect to MySQL: " . mysqli_connect_error();
+ }
+
+if (isset($_POST['user_id']) && is_numeric($_POST['user_id'])){
      $user_id=$_POST['user_id'];
      $userName=$_POST["userName"];
      $password=$_POST["password"];
@@ -86,18 +88,44 @@
      echo "Invalid Access";
      exit;
    }
-  ?>
-
-  <form action="createdReviews.php" method="post">
-    <?php
-      $stmt = $con->prepare("SELECT restName FROM review NATURAL JOIN restaurant WHERE review_id=?");
-      $stmt->bind_param("i",$review_id);
+  if(isset($_POST['restaurant'])){
+    $redirectURL = 'addReviews.php';
+    if (empty($_POST['restaurant'])) {
+      echo '<script language="javascript">';
+      echo 'alert("Restaurant Field cannot be empty");';
+      echo 'document.getElementById("addReviews").submit();';
+      echo 'window.location = "'.$redirectURL.'";';
+      echo '</script>';
+    } else {
+      $stmt = $con->prepare("SELECT restaurant_id FROM restaurant WHERE restName=?");
+      $stmt->bind_param("s",$_POST['restaurant']);
       $stmt->execute();
-      $stmt->bind_result($restName);
+      $stmt->bind_result($rest_id);
       $stmt->store_result();
       $stmt->fetch();
-      echo "Restaurant Name: ". $restName;
-    ?>
+      if ($stmt->num_rows == 0){
+        echo '<script language="javascript">';
+        echo 'alert("Restaurant: '.$_POST['restaurant'].' is not in our system");';
+        echo 'document.getElementById("addReviews").submit();';
+        echo 'window.location = "'.$redirectURL.'";';
+        echo '</script>';
+      } else {
+        //post to review id
+        $stmt = $con->prepare("INSERT INTO review (rating, comment, user_id, restaurant_id) VALUES (?,?,?,?)");
+        $stmt->bind_param("isii",$_POST['rating'],$_POST['comment'],$user_id,$rest_id);
+        $stmt->execute();
+
+      }
+
+    }
+  }
+
+
+
+  ?>
+
+  <form action="addReviews.php" method="post" id='addReviews'>
+    Restaurant: <input class="form-control" type= "text" name="restaurant">
     <br>
       Comment: <input class="form-control" type= "text" name="comment">
       <br>
@@ -111,11 +139,10 @@
       <br>
 
       <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
-      <input type="hidden" name="review_id" value="<?php echo $review_id;?>">
       <input type="hidden" name="userName" value="<?php echo $userName;?>">
       <input type="hidden" name="password" value="<?php echo $password;?>">
-      <button class="btn btn-success" type="submit" value="Add Review">Edit Review</button>
-      </form>
+      <button class="btn btn-success" type="submit" value="Add Review">Add Review</button>
+    </form>
   </div>
 
   </body>
