@@ -114,7 +114,7 @@
       <input type="hidden" name="review_id" value="<?php echo $review_id;?>">
       <input type="hidden" name="userName" value="<?php echo $userName;?>">
       <input type="hidden" name="password" value="<?php echo $password;?>">
-      <button class="btn btn-success" type="submit" value="Add Review">Edit Review</button>
+      <button class="btn btn-success" type="submit" value="Edit Review">Edit Review</button>
       </form>
   </div>
 

@@ -76,15 +76,16 @@
    // Check connection
    if (mysqli_connect_errno())
    {
-     echo "Failed to connect to MySQL: " . mysqli_connect_error();
+      echo "Failed to connect to MySQL: " . mysqli_connect_error();
    }
 
-   if(isset($_POST['restaurant_id']) && isset($_POST['user_id']) && isset($_POST['delete']) && is_numeric($_POST['restaurant_id']) && is_numeric($_POST['user_id'])){
+   if (isset($_POST['restaurant_id']) && isset($_POST['user_id']) && isset($_POST['delete']) && is_numeric($_POST['restaurant_id']) && is_numeric($_POST['user_id'])){
      $sql="DELETE FROM restaurant WHERE restaurant_id='{$_POST['restaurant_id']}'";
      $result = mysqli_query($con,$sql);
    }
 
-   if(isset($_POST['restaurant_id']) && isset($_POST['user_id']) && isset($_POST['update']) && is_numeric($_POST['restaurant_id']) && is_numeric($_POST['user_id'])){
+   if(isset($_POST['restaurant_id']) && isset($_POST['user_id']) && isset($_POST['update']) && is_numeric($_POST['restaurant_id']) && is_numeric($_POST['user_id']))
+   {
      $restaurant_id=$_POST['restaurant_id'];
      $restName=$_POST['restName'];
      $hours=$_POST['hours'];
@@ -98,85 +99,101 @@
      $url1=$_POST['url1'];
      $url2=$_POST['url2'];
      $url3=$_POST['url3'];
-     if(!empty($restName)){
+     if(!empty($restName))
+     {
        $stmt = $con->prepare("UPDATE restaurant SET restName=? WHERE restaurant_id=?");
        $stmt->bind_param("si",$restName, $restaurant_id);
        $stmt->execute();
      }
-     if(!empty($hours)){
+     if(!empty($hours))
+     {
        $stmt = $con->prepare("UPDATE restaurant SET hours=? WHERE restaurant_id=?");
        $stmt->bind_param("si",$hours, $restaurant_id);
        $stmt->execute();
      }
-     if(!empty($street)){
+     if(!empty($street))
+     {
        $stmt = $con->prepare("UPDATE restaurant_address SET street=? WHERE restaurant_id=?");
        $stmt->bind_param("si",$street, $restaurant_id);
        $stmt->execute();
      }
-     if(!empty($city)){
+     if(!empty($city))
+     {
        $stmt = $con->prepare("UPDATE restaurant_address SET city=? WHERE restaurant_id=?");
        $stmt->bind_param("si",$city, $restaurant_id);
        $stmt->execute();
      }
-     if(!empty($state)){
+     if(!empty($state))
+     {
        $stmt = $con->prepare("UPDATE restaurant_address SET state=? WHERE restaurant_id=?");
        $stmt->bind_param("si",$state, $restaurant_id);
        $stmt->execute();
      }
-     if(!empty($zip)){
+     if(!empty($zip))
+     {
        $stmt = $con->prepare("UPDATE restaurant_address SET zip=? WHERE restaurant_id=?");
        $stmt->bind_param("si",$zip, $restaurant_id);
        $stmt->execute();
      }
-     if(!empty($phone1)){
+     if(!empty($phone1))
+     {
        $sql="SELECT* FROM restaurant_phone WHERE restaurant_id='{$_POST['restaurant_id']}'";
        $result = mysqli_query($con,$sql);
-       if(mysqli_num_rows($result)==0){
+       if(mysqli_num_rows($result)==0)
+       {
          $stmt = $con->prepare("INSERT INTO restaurant_phone (phone_number,restaurant_id) VALUES (?, ?)");
          $stmt->bind_param("si",$phone1, $restaurant_id);
          $stmt->execute();
        }
-       else{
+       else
+       {
          $stmt = $con->prepare("UPDATE restaurant_phone SET phone_number=? WHERE restaurant_id=?");
          $stmt->bind_param("si",$phone1, $restaurant_id);
          $stmt->execute();
        }
      }
-     if(!empty($phone2)){
+     if(!empty($phone2))
+     {
          $stmt = $con->prepare("UPDATE restaurant_phone SET phone_number2=? WHERE restaurant_id=?");
          $stmt->bind_param("si",$phone2, $restaurant_id);
          $stmt->execute();
      }
-     if(!empty($phone3)){
-         $stmt = $con->prepare("UPDATE restaurant_phone SET phone_number3=? WHERE restaurant_id=?");
-         $stmt->bind_param("si",$phone3, $restaurant_id);
-         $stmt->execute();
+     if(!empty($phone3))
+     {
+       $stmt = $con->prepare("UPDATE restaurant_phone SET phone_number3=? WHERE restaurant_id=?");
+       $stmt->bind_param("si",$phone3, $restaurant_id);
+       $stmt->execute();
      }
-     if(!empty($url1)){
+     if(!empty($url1))
+     {
        $sql="SELECT* FROM restaurant_photo WHERE restaurant_id='{$_POST['restaurant_id']}'";
        $result = mysqli_query($con,$sql);
-       if(mysqli_num_rows($result)==0){
+       if(mysqli_num_rows($result)==0)
+       {
          $stmt = $con->prepare("INSERT INTO restaurant_photo (url ,restaurant_id) VALUES (?, ?)");
          $stmt->bind_param("si",$url1, $restaurant_id);
          $stmt->execute();
        }
-       else{
+       else
+       {
          $stmt = $con->prepare("UPDATE restaurant_photo SET url=? WHERE restaurant_id=?");
          $stmt->bind_param("si",$url1, $restaurant_id);
          $stmt->execute();
        }
      }
-     if(!empty($url2)){
+     if(!empty($url2))
+     {
        $stmt = $con->prepare("UPDATE restaurant_photo SET url2=? WHERE restaurant_id=?");
        $stmt->bind_param("si",$url2, $restaurant_id);
        $stmt->execute();
      }
-     if(!empty($url3)){
+     if(!empty($url3))
+     {
        $stmt = $con->prepare("UPDATE restaurant_photo SET url3=? WHERE restaurant_id=?");
        $stmt->bind_param("si",$url3, $restaurant_id);
        $stmt->execute();
-     }
-   }
+      }
+    }
 
    $sql1="SELECT* FROM user WHERE user_id='{$_POST['user_id']}'";
    $result1 = mysqli_query($con,$sql1);
@@ -197,7 +214,8 @@
      echo "test ".$_POST['user_id'];
      exit;
    }
-   while($row = mysqli_fetch_array($result1)) {
+   while($row = mysqli_fetch_array($result1)) 
+   {
      echo "Restaurant Name: ". $row['restName'] ."<br>";
      echo "Hours: ". $row['hours']."<br>";
      echo "Street: ". $row['street']."<br>";
@@ -255,14 +273,15 @@
           <input type="hidden" name="restaurant_id" value="'.$restaurant_id.'">
           <input type="hidden" name="userName" value="'.$_POST['userName'].'">
           <input type="hidden" name="password" value="'.$_POST['password'].'">
-          <input type="submit" value="View More" name="View More">
+          <button class="btn btn-success" type="submit" value="View More">View More</button>
           </form>';
      echo '<form action="editRestaurant.php" method="post">
           <input type="hidden" name="restaurant_id" value="'.$restaurant_id.'">
           <input type="hidden" name="user_id" value="'.$user_id.'">
           <input type="hidden" name="userName" value="'.$_POST['userName'].'">
           <input type="hidden" name="password" value="'.$_POST['password'].'">
-          <input type="submit" value="Edit" name="Edit">
+          <button class="btn btn-warning" type="submit" value="Edit">Edit</button>
+
           </form>';
      echo '<form action="createdRestaurants.php" method="post">
           <input type="hidden" name="restaurant_id" value="'.$restaurant_id.'">
@@ -270,19 +289,52 @@
           <input type="hidden" name="userName" value="'.$_POST['userName'].'">
           <input type="hidden" name="password" value="'.$_POST['password'].'">
           <input type="hidden" name="delete" value="delete">
-          <input type="submit" value="Delete" name="Delete">
+          <button class="btn btn-danger" type="submit" value="Delete">Delete</button>
           </form>';
      echo "<br>";
-
   }
+  //prepare file for export
+    $sql="SELECT* FROM restaurant NATURAL JOIN can_edit NATURAL JOIN restaurant_address NATURAL JOIN restaurant_phone NATURAL JOIN restaurant_photo WHERE user_id='{$_POST['user_id']}'";
+
+    $json_array = array();
+    $result = mysqli_query($con,$sql);
+    while($row=mysqli_fetch_array($result)) 
+    {
+      $restaurant_id=$row['restaurant_id'];
+      $restName=$row['restName'];
+      $hours=$row['hours'];
+      $street=$row['street'];
+      $city=$row['city'];
+      $state=$row['state'];
+      $zip=$row['zip'];
+      $phone1=$row['phone_number'];
+      $phone2=$row['phone_number2'];
+      $phone3=$row['phone_number3'];
+      $url1=$row['url'];
+      $url2=$row['url2'];
+      $url3=$row['url3'];
+
+      //$posts[]=$row;
+      $json_array[] = array('Restaurant Name'=> $restName, 'Hours'=> $hours,
+      'Street'=>$street, 'City'=>$city, 'State'=>$state, 'Zip'=>$zip,
+      'Phone Number 1'=> $phone1, 'Phone Number 2'=>$phone2, 'Phone Number 3'=>$phone3,
+      'Url 1'=> $url1, 'Url 2'=>$url2, 'URL 3'=>$url3);
+    }
+    $json_data = json_encode($json_array, JSON_PRETTY_PRINT);
+    $file = '../myfile.json';
+    file_put_contents($file, $json_data);
   ?>
 
-  <form action="exportRestaurants.php" method="post">
+  <form action="createdRestaurants.php" id="createdRestaurants" method="post">
     <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
     <input type="hidden" name="userName" value="<?php echo $userName;?>">
     <input type="hidden" name="password" value="<?php echo $password;?>">
-    <input type="submit" value="Export Data">
-  </form>
+</form>
+<form method="get" action="<?php echo $file;?>">
+   <button class="btn btn-primary" type="submit">Export</button>
+
+</form>
+
 </div>
 </body>
 </html>
