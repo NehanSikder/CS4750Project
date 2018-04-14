@@ -18,7 +18,7 @@
 			$( "#input" ).change(function() {
 				$.ajax({
 					url: 'searchRestaurants.php', 
-					data: {search: $( "#input" ).val()},
+					data: {search: $( "#input" ).val(), userName: user, password: password},
 					success: function(res){
 						$('#result').html(res);
 					}
