@@ -13,10 +13,14 @@
    {
      echo "Failed to connect to MySQL: " . mysqli_connect_error();
    }
-
+$loginURL = '../index.html'; 
    if (isset($_POST['user_id'])  && is_numeric($_POST['user_id'])){
      $sql="DELETE FROM user WHERE user_id='{$_POST['user_id']}'";
      $result = mysqli_query($con,$sql);
+     echo '<script language="javascript">';
+    echo 'alert("Account has been deleted");';
+    echo 'window.location = "'.$loginURL.'";';
+    echo '</script>';
 
   }
    else{
@@ -25,9 +29,9 @@
    }
 
   ?>
-  <h1>Account has been deleted</h1>
+  <!-- <h1>Account has been deleted</h1>
   <form action="../index.html" method="post">
       <input type="submit" value="Home Page">
-  </form>
+  </form> -->
 </body>
 </html>
