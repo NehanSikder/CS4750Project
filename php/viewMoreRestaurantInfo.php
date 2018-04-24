@@ -106,9 +106,9 @@
 
 
   <div class="container">
-  <h1>Restaurant Page</h1>
   <h3>Basic Information</h3>
-
+  <div class="row">
+<div class="col-sm-6">
   <?php
    include_once("./library.php"); // To connect to the database
    $con = new mysqli($SERVER, $USERNAME, $PASSWORD, $DATABASE);
@@ -121,6 +121,7 @@
    $sql1="SELECT* FROM restaurant NATURAL JOIN restaurant_address WHERE restaurant_id='{$_POST['restaurant_id']}'";
    $result1 = mysqli_query($con,$sql1);
    while($row = mysqli_fetch_array($result1)) {
+      echo '<h3>Basic Information</h3>';
      echo "Restaurant Name: ". $row['restName'] ."<br>";
      echo "Hours: ". $row['hours']."<br>";
      echo "Street: ". $row['street']."<br>";
@@ -147,16 +148,20 @@
      $result3 = mysqli_query($con,$sql3);
      if(mysqli_num_rows($result3)!=0){
        $row_url = mysqli_fetch_array($result3);
-       echo "URL: ".$row_url['url']."<br>";
+       echo '<img src="'.$row_url['url'].'" class="img-thumbnail"><br>';
        if(!empty($row_url['url2'])){
-         echo "Other URL: ".$row_url['url2']."<br>";
+       echo '<img src="'.$row_url['url2'].'" class="img-thumbnail"><br>';
        }
        if(!empty($row_url['url3'])){
-         echo "Other URL: ".$row_url['url3']."<br>";
+       echo '<img src="'.$row_url['url3'].'" class="img-thumbnail"><br>';
        }
      }
   }
   ?>
+</div>
+<div class="col-sm-6">
+  
+
   <h3>Menu</h3>
   <?php
     $sql="SELECT * FROM serves NATURAL JOIN item WHERE restaurant_id='{$_POST['restaurant_id']}'";
@@ -193,7 +198,8 @@
         }
       }
    ?>
-
+   </div>
+</div>
 </div>
 </body>
 </html>

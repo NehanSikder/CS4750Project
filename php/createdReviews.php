@@ -107,7 +107,7 @@
      // echo "<td><a href='deleteReview.php?review_id={$review_id}&amp;user_id={$user_id}' />Delete</a></td>";
      // echo "<br>";
      // echo "<br>";
-     echo '<form action="editReview.php" method="post">
+     echo '<form action="editReview.php" method="post" >
           <input type="hidden" name="review_id" value="'.$review_id.'">
           <input type="hidden" name="user_id" value="'.$user_id.'">
           <input type="hidden" name="userName" value="'.$_POST['userName'].'">

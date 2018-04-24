@@ -19,7 +19,7 @@
                         <input type="hidden" name="restaurant_id" value="'.$restaurant_id.'">
                         <input type="hidden" name="userName" value="'.$_GET['userName'].'">
                         <input type="hidden" name="password" value="'.$_GET['password'].'">
-                        <button class="btn btn-success" type="submit" value="View More">'.$restName.'</button>
+                        <button class="btn btn-link" type="submit" value="View More">'.$restName.'</button>
                         </form>';
         }
         echo '</div>'; 
