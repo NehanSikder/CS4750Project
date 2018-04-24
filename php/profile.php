@@ -136,8 +136,8 @@
      echo "<br>";
      echo '<form action="editProfile.php" method="post">
           <input type="hidden" name="user_id" value="'.$user_id.'">
-          <input type="hidden" name="userName" value="'.$userName.'">
-          <input type="hidden" name="password" value="'.$password.'">
+          <input type="hidden" name="userName" value="'.$_POST['userName'].'">
+          <input type="hidden" name="password" value="'.$_POST['password'].'">
           <button class="btn btn-warning" type="submit" value="Edit Profile">Edit Profile</button>
           </form>';
      echo '<form action="deleteProfile.php" method="post">
@@ -146,6 +146,7 @@
 
           </form>';
      echo "<br>";
+  
 
   }
   ?>
