@@ -28,9 +28,6 @@
 	}
 	</script>
 </head>
-<h1 class="text-center align-items-center">
-    Search Restaurants
-</h1>
 <body>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-inverse">
@@ -66,6 +63,7 @@
         <form class="navbar-form navbar-left" action="search.php" method="post">
           <input type="hidden" name="userName" value="<?php echo $_POST['userName'];?>">
           <input type="hidden" name="password" value="<?php echo $_POST['password'];?>">
+          <input type="hidden" name="user_id" value="<?php echo $_POST['user_id'];?>">
           <button class="btn btn-link" type="submit" value="Search">Search</button>
         </form>
       </li>
@@ -90,6 +88,11 @@
   </div>
 </nav>
 
+<h1 class="text-center align-items-center">
+    Search Restaurants
+</h1>
+
+
 <div class="text-center">
 <div class="input-group mb-3">
 <div class="centered">
@@ -100,5 +103,7 @@
 	<br/>
 	<div id="result">Search Result</div>
 </div>
+ 
+
 </body>
 </html>
