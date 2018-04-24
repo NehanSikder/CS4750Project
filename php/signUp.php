@@ -12,22 +12,20 @@
  $userName = $_POST['userName'];
  $signUpURL = '/signUp.html';
 //call stored proc to get list of all usernames
-  $result = mysqli_query($con, 
-     "CALL get_all_usernames()") or die("Stored Procedure Query failed: " . mysqli_error());
+  $result = mysqli_query($con, "CALL get_all_usernames();") or die("Stored Procedure Query failed: " . mysqli_error($con));
   //loop the result set
   while ($row = mysqli_fetch_array($result)){   
       if ($row[0] ==  $userName) {
-     	echo '<script language="javascript">';
-		echo 'alert("Username: '.$userName.' already taken");';
-		echo 'window.location = "'.$signUpURL.'";';
-		echo '</script>';
-		exit;
+       	echo '<script language="javascript">';
+    		echo 'alert("Username: '.$userName.' already taken");';
+    		echo 'window.location = "'.$signUpURL.'";';
+    		echo '</script>';
+    		exit;
       }
   }
 
 // Check if required fields have been submitted
 $required_fields = array('userName', 'password', 'name');
-
 foreach($required_fields as $field) {
   if (empty($_POST[$field])) {
   	// echo 'Need to input '.$field;
@@ -39,15 +37,22 @@ foreach($required_fields as $field) {
   	exit;
   }
 }
+
+ $con = new mysqli($SERVER, $USERNAME, $PASSWORD, $DATABASE);
+$loginURL = '/index.html'; 
  // Form the SQL query (an INSERT query)
  $sql="INSERT INTO user (user_name, password, name, age, email)
  VALUES
- ('$_POST[userName]','$_POST[password]','$_POST[name]','$_POST[age]','$_POST[email]')";
+ ('$_POST[userName]','$_POST[password]','$_POST[name]','$_POST[age]','$_POST[email]');";
 
  if (!mysqli_query($con,$sql))
  {
  die('Error: ' . mysqli_error($con));
  }
- echo "New User: $_POST[userName] created"; // Output to user
+ //echo "New User: $_POST[userName] created"; // Output to user
+  echo '<script language="javascript">';
+  echo 'alert("New user: '.$userName.' created");';
+  echo 'window.location = "'.$loginURL.'";';
+  echo '</script>';
  mysqli_close($con);
 ?> 
