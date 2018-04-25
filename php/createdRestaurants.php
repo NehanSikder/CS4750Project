@@ -294,7 +294,7 @@
      echo "<br>";
   }
   //prepare file for export
-    $sql="SELECT* FROM restaurant NATURAL JOIN can_edit NATURAL JOIN restaurant_address NATURAL JOIN restaurant_phone NATURAL JOIN restaurant_photo WHERE user_id='{$_POST['user_id']}'";
+    $sql="SELECT* FROM restaurant JOIN can_edit ON restaurant.restaurant_id=can_edit.restaurant_id LEFT JOIN restaurant_address ON restaurant.restaurant_id=restaurant_address.restaurant_id LEFT JOIN restaurant_phone ON restaurant.restaurant_id=restaurant_phone.restaurant_id LEFT JOIN restaurant_photo ON restaurant.restaurant_id=restaurant_photo.restaurant_id WHERE user_id='{$_POST['user_id']}'";
 
     $json_array = array();
     $result = mysqli_query($con,$sql);
@@ -322,6 +322,11 @@
     }
     $json_data = json_encode($json_array, JSON_PRETTY_PRINT);
     $file = '../myfile.json';
+    if (file_exists($file)) {
+    
+    } else {
+    
+    }
     file_put_contents($file, $json_data);
   ?>
 
