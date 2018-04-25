@@ -68,19 +68,19 @@
 <div class="container">
  <h1>Add Restaurant</h1>
   <form action="addItems.php" method="post" id='addReviews'>
-    Restaurant Name: <input class="form-control" type= "text" name="restaurant">
+    Restaurant Name: <input class="form-control" type= "text" name="restaurant" required>
     <br>
-      Street: <input class="form-control" type= "text" name="street">
+      Street: <input class="form-control" type= "text" name="street" required>
       <br>
-      City: <input class="form-control" type= "text" name="city">
+      City: <input class="form-control" type= "text" name="city" required>
       <br>
-      State: <input class="form-control" type= "text" name="state">
+      State: <input class="form-control" type= "text" name="state" required>
       <br>
-      Zip: <input class="form-control" type= "text" name="zip">
+      Zip: <input class="form-control" type= "text" name="zip" required>
       <br>
-      Phone: <input class="form-control" type= "text" name="phone">
+      Phone: <input class="form-control" type= "text" name="phone" required>
       <br>
-      Opens: <select class="form-control" id="rating" name="opens">
+      Opens: <select class="form-control" id="rating" name="opens" required>
       <option value="7:00 AM">7:00 AM</option>
         <option value="8:00 AM">8:00 AM</option>
         <option value="9:00 AM">9:00 AM</option>
@@ -89,7 +89,7 @@
         <option value="12:00 PM">12:00 PM</option>
       </select>
       <br>
-      Closes: <select class="form-control" id="rating" name="closes">
+      Closes: <select class="form-control" id="rating" name="closes" required>
         <option value="6:00 PM">6:00 PM</option>
         <option value="7:00 PM">7:00 PM</option>
         <option value="8:00 PM">8:00 PM</option>

@@ -135,9 +135,9 @@ if (isset($_POST['user_id']) && is_numeric($_POST['user_id'])){
   <br>
   <form action="addItems.php" method="post" id='addReviews'>
     <h2> Menu Item Info </h2>
-    Item Name: <input class= "form-control" type="text" name="itemName"/>
-    Item Description: <input class= "form-control" type="text" name="description"/>
-    Item Price: <input class= "form-control" type="text" name="price"/>
+    Item Name: <input class= "form-control" type="text" name="itemName" required/>
+    Item Description: <input class= "form-control" type="text" name="description" required/>
+    Item Price: <input class= "form-control" type="text" name="price" required/>
     <input type="hidden" name="user_id" value="<?php echo $_POST['user_id'];?>">
     <input type="hidden" name="userName" value="<?php echo $_POST['userName'];?>">
     <input type="hidden" name="password" value="<?php echo $_POST['password'];?>">
