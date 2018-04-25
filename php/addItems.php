@@ -66,7 +66,7 @@
 </nav>
 
 <div class="container">
- <h1>Add Items</h1>
+ <h1>Add Menu Items to <?php echo $_POST['restaurant']?></h1>
 
  <?php
    ob_start();
@@ -101,6 +101,10 @@ if (isset($_POST['user_id']) && is_numeric($_POST['user_id'])){
         $stmt = $con->prepare("INSERT INTO restaurant_phone (restaurant_id,phone_number) VALUES (?,?)");
         $stmt->bind_param("is",$last_id,$_POST['phone']);
         $stmt->execute();
+        $stmt = $con->prepare("INSERT INTO can_edit (restaurant_id,user_id) VALUES (?,?)");
+        $stmt->bind_param("ii",$last_id,$_POST['user_id']);
+        $stmt->execute();
+        $stmt->close();
     }
     else{
         if(empty($_POST['itemName'])){
@@ -130,7 +134,7 @@ if (isset($_POST['user_id']) && is_numeric($_POST['user_id'])){
 ?>
   <br>
   <form action="addItems.php" method="post" id='addReviews'>
-    <h2> Item Info </h2>
+    <h2> Menu Item Info </h2>
     Item Name: <input class= "form-control" type="text" name="itemName"/>
     Item Description: <input class= "form-control" type="text" name="description"/>
     Item Price: <input class= "form-control" type="text" name="price"/>
@@ -146,8 +150,14 @@ if (isset($_POST['user_id']) && is_numeric($_POST['user_id'])){
     <input type="hidden" name="opens" value="<?php echo $_POST['opens'];?>">
     <input type="hidden" name="closes" value="<?php echo $_POST['closes'];?>">
     <input type="hidden" name="addedItem" value=1/>
-    <button class="btn btn-success" type="submit" value="Add Review">Add Restaurant</button>
-</form>
+    <button class="btn btn-success" type="submit" value="Add Review">Add Another</button>
+  </form>
+  <form action="createdRestaurants.php" method="post" id='addReviews'>
+    <input type="hidden" name="user_id" value="<?php echo $_POST['user_id'];?>">
+    <input type="hidden" name="userName" value="<?php echo $_POST['userName'];?>">
+    <input type="hidden" name="password" value="<?php echo $_POST['password'];?>">
+    <button class="btn btn-success" type="submit" value="Finish">Finish</button>
+  </form>
   </div>
 
   </body>
