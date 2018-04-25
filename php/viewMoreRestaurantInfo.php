@@ -142,7 +142,10 @@
      //   echo "Phone Number ".$counter. ": ". $row_number['phone_number']."<br>";
      //   $counter++;
      // }
-     echo "Average Rating: ". $row['avg_rating']."<br>";
+     $avg_sql="SELECT AVG(rating) AS avgRating FROM restaurant NATURAL JOIN review WHERE restaurant_id='{$row['restaurant_id']}'";
+     $avg_rating_result=mysqli_query($con,$avg_sql);
+     $avg_rating_row = mysqli_fetch_array($avg_rating_result);
+     echo "Average Rating: ". $avg_rating_row['avgRating']."<br>";
      $sql3="SELECT* FROM restaurant_photo WHERE restaurant_id='{$row['restaurant_id']}'";
      $result3 = mysqli_query($con,$sql3);
      if(mysqli_num_rows($result3)!=0){
@@ -159,7 +162,7 @@
   ?>
 </div>
 <div class="col-sm-6">
-  
+
 
   <h3>Menu</h3>
   <?php

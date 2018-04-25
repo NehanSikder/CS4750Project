@@ -214,7 +214,7 @@
      echo "No Restaurants Made";
      exit;
    }
-   while($row = mysqli_fetch_array($result1)) 
+   while($row = mysqli_fetch_array($result1))
    {
      echo "Restaurant Name: ". $row['restName'] ."<br>";
      echo "Hours: ". $row['hours']."<br>";
@@ -240,7 +240,10 @@
      //   echo "Phone Number ".$counter. ": ". $row_number['phone_number']."<br>";
      //   $counter++;
      // }
-     echo "Average Rating: ". $row['avg_rating']."<br>";
+     $avg_sql="SELECT AVG(rating) AS avgRating FROM restaurant NATURAL JOIN review WHERE restaurant_id='{$row['restaurant_id']}'";
+     $avg_rating_result=mysqli_query($con,$avg_sql);
+     $avg_rating_row = mysqli_fetch_array($avg_rating_result);
+     echo "Average Rating: ". $avg_rating_row['avgRating']."<br>";
      $sql3="SELECT* FROM can_edit NATURAL JOIN restaurant_photo WHERE user_id='{$_POST['user_id']}' and restaurant_id='{$row['restaurant_id']}'";
      if($admin!=0){
        $sql3="SELECT* FROM can_edit NATURAL JOIN restaurant_photo WHERE restaurant_id='{$row['restaurant_id']}'";
@@ -298,7 +301,7 @@
 
     $json_array = array();
     $result = mysqli_query($con,$sql);
-    while($row=mysqli_fetch_array($result)) 
+    while($row=mysqli_fetch_array($result))
     {
       $restaurant_id=$row['restaurant_id'];
       $restName=$row['restName'];
