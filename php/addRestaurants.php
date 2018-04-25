@@ -1,39 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>Search Restaurant</title>
-  <script src="../js/js/jquery-1.6.2.min.js" type="text/javascript"></script> 
-	<script src="../js/js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>Add Review</title>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="stylesheet.css">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript">
-	var user = "<?php echo $_POST['userName'] ?>";
-	var password = "<?php echo $_POST['password'] ?>";
-	if(user != null && password != null){
-		$(document).ready(function() {
-			$( "#input" ).change(function() {
-				$.ajax({
-					url: 'searchRestaurants.php', 
-					data: {search: $( "#input" ).val(), userName: user, password: password},
-					success: function(res){
-						$('#result').html(res);
-					}
-				});
-			});
-		});
-	}
-	</script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../stylesheet.css">
 </head>
-<h1 class="text-center align-items-center">
-    Search Restaurants
-</h1>
 <body>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-inverse">
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Restaurant Review</a>
@@ -90,15 +65,47 @@
   </div>
 </nav>
 
-<div class="text-center">
-<div class="input-group mb-3">
-<div class="centered">
-	<input type="text" id= "input" class="form-control" placeholder="Search Restaurants" aria-label="Search Restaurants" aria-describedby="basic-addon2">
-</div>
-</div>
-	<br/>
-	<br/>
-	<div id="result">Search Result</div>
-</div>
-</body>
-</html>
+<div class="container">
+ <h1>Add Restaurant</h1>
+  <form action="addItems.php" method="post" id='addReviews'>
+    Restaurant Name: <input class="form-control" type= "text" name="restaurant">
+    <br>
+      Street: <input class="form-control" type= "text" name="street">
+      <br>
+      City: <input class="form-control" type= "text" name="city">
+      <br>
+      State: <input class="form-control" type= "text" name="state">
+      <br>
+      Zip: <input class="form-control" type= "text" name="zip">
+      <br>
+      Phone: <input class="form-control" type= "text" name="phone">
+      <br>
+      Opens: <select class="form-control" id="rating" name="opens">
+      <option value="7:00 AM">7:00 AM</option>
+        <option value="8:00 AM">8:00 AM</option>
+        <option value="9:00 AM">9:00 AM</option>
+        <option value="10:00 AM">10:00 AM</option>
+        <option value="11:00 AM">11:00 AM</option>
+        <option value="12:00 PM">12:00 PM</option>
+      </select>
+      <br>
+      Closes: <select class="form-control" id="rating" name="closes">
+        <option value="6:00 PM">6:00 PM</option>
+        <option value="7:00 PM">7:00 PM</option>
+        <option value="8:00 PM">8:00 PM</option>
+        <option value="9:00 PM">9:00 PM</option>
+        <option value="10:00 PM">10:00 PM</option>
+        <option value="11:00 PM">11:00 PM</option>
+        <option value="12:00 AM">12:00 AM</option>
+      </select>
+      <br>
+
+      <input type="hidden" name="user_id" value="<?php echo $_POST['user_id'];?>">
+      <input type="hidden" name="userName" value="<?php echo $_POST['userName'];?>">
+      <input type="hidden" name="password" value="<?php echo $_POST['password'];?>">
+      <button class="btn btn-success" type="submit" value="Add Review">Add Items</button>
+    </form>
+  </div>
+
+  </body>
+  </html>

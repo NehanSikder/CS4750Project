@@ -169,6 +169,7 @@
             <form action="addRestaurants.php" method="post">
               <input type="hidden" name="userName" value="<?php echo $userName;?>">
               <input type="hidden" name="password" value="<?php echo $password;?>">
+              <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
               <button class="btn btn-primary btn-lg btn-block"  type="submit" value="Add Restaurants">Add Restaurants</button>
             </form>
         </div>
