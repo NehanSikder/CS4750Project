@@ -330,11 +330,7 @@
     <input type="hidden" name="userName" value="<?php echo $userName;?>">
     <input type="hidden" name="password" value="<?php echo $password;?>">
 </form>
-<form method="get" action="<?php echo $file;?>">
-   <button class="btn btn-primary" type="submit">Export</button>
-
-</form>
-
+<a class="btn btn-primary" href="<?php echo $file;?>" download>Export</a>
 </div>
 </body>
 </html>
