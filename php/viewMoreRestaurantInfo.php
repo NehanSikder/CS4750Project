@@ -121,7 +121,6 @@
    $sql1="SELECT* FROM restaurant NATURAL JOIN restaurant_address WHERE restaurant_id='{$_POST['restaurant_id']}'";
    $result1 = mysqli_query($con,$sql1);
    while($row = mysqli_fetch_array($result1)) {
-      echo '<h3>Basic Information</h3>';
      echo "Restaurant Name: ". $row['restName'] ."<br>";
      echo "Hours: ". $row['hours']."<br>";
      echo "Street: ". $row['street']."<br>";
