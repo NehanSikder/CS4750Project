@@ -82,6 +82,12 @@
      $user_id=$_POST['user_id'];
      $userName=$_POST["userName"];
      $password=$_POST["password"];
+     $stmt = $con->prepare("SELECT restaurant_id,restName,hours,street,city,state,zip,phone_number FROM restaurant NATURAL JOIN restaurant_address NATURAL JOIN restaurant_phone WHERE restaurant_id = ?");
+     $stmt->bind_param("i",$_POST['restaurant_id']);
+     $stmt->execute();
+     $stmt->bind_result($id,$restName,$hours,$street,$city,$state,$zip,$phone_number);
+     $stmt->fetch();
+     $stmt->close();
   }
    else{
      echo "Invalid Access";
@@ -90,13 +96,13 @@
   ?>
 
     <form action="createdRestaurants.php" method="post">
-      Restaurant Name: <input class="form-control" type= "text" name="restName"><br>
-      Hours: <input class="form-control" type= "text" name="hours"><br>
-      Street: <input class="form-control" type= "text" name="street"><br>
-      City: <input class="form-control" type= "text" name="city"><br>
-      State: <input class="form-control" type= "text" name="state"><br>
-      Zip Code: <input class="form-control" type= "text" name="zip"><br>
-      Phone Number 1: <input class="form-control" type= "text" name="phone1"><br>
+      Restaurant Name: <input class="form-control" type= "text" name="restName" value=<?php echo $restName?>><br>
+      Hours: <input class="form-control" type= "text" name="hours" required value=<?php echo $hours?>><br>
+      Street: <input class="form-control" type= "text" name="street" required value=<?php echo $street?>><br>
+      City: <input class="form-control" type= "text" name="city" required value=<?php echo $city?>><br>
+      State: <input class="form-control" type= "text" name="state" required value=<?php echo $state?>><br>
+      Zip Code: <input class="form-control" type= "text" name="zip" required value=<?php echo $zip?>><br>
+      Phone Number 1: <input class="form-control" type= "text" name="phone1" required value=<?php echo $phone_number?>><br>
       Phone Number 2: <input class="form-control" type= "text" name="phone2"><br>
       Phone Number 3: <input class="form-control" type= "text" name="phone3"><br>
       URL 1: <input class="form-control" type= "text" name="url1"><br>
@@ -108,6 +114,14 @@
       <input type="hidden" name="password" value="<?php echo $password;?>">
       <input type="hidden" name="update" value="update">
       <button class="btn btn-success" type="submit" value="Edit Restaurant">Edit Restaurant</button>
+    </form>
+    <form action="addItems.php" method="post">
+      <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
+      <input type="hidden" name="userName" value="<?php echo $userName;?>">
+      <input type="hidden" name="password" value="<?php echo $password;?>">
+      <input type="hidden" name="restaurant" value="<?php echo $restName;?>">
+      <input type="hidden" name="addedItem" value=1/>
+      <button class="btn btn-success" type="submit" value="Edit Restaurant">Add Menu Items</button>
     </form>
 </div>
   </body>
