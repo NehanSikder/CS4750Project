@@ -322,11 +322,6 @@
     }
     $json_data = json_encode($json_array, JSON_PRETTY_PRINT);
     $file = '../myfile.json';
-    if (file_exists($file)) {
-    
-    } else {
-    
-    }
     file_put_contents($file, $json_data);
   ?>
 
