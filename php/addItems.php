@@ -112,20 +112,25 @@ if (isset($_POST['user_id']) && is_numeric($_POST['user_id'])){
             $stmt = $con->prepare("INSERT INTO item (name,description,price) VALUES (?,?,?)");
             $stmt->bind_param("ssd",$_POST['itemName'],$_POST['description'],$_POST['price']);
             $stmt->execute();
+
             $last_id = $con->insert_id;
-            // $sql = "SELECT id FROM restaurant WHERE restName = $_POST['restaurant']";
-            // $result = $con->query($sql);
-            // $row = $result->fetch_assoc();
-            // $stmt = $con->prepare("INSERT INTO serves (restaurant_id,item_id) VALUES (?,?,?)");
-            // $stmt->bind_param("ii",$row["id"],$last_id);
-            // $stmt->execute();
+            $stmt = $con->prepare("SELECT restaurant_id FROM restaurant WHERE restName = ?");
+            $stmt->bind_param("s",$_POST['restaurant']);
+            $stmt->execute();
+            $stmt->bind_result($id);
+            $stmt->fetch();
+            $stmt->close();
+            
+            $stmt = $con->prepare("INSERT INTO serves (restaurant_id,item_id) VALUES (?,?)");
+            $stmt->bind_param("ii",$id,$last_id);
+            $stmt->execute();
         }
     }
   }
 ?>
   <br>
   <form action="addItems.php" method="post" id='addReviews'>
-    <h1> Item 1 </h1>
+    <h2> Item Info </h2>
     Item Name: <input class= "form-control" type="text" name="itemName"/>
     Item Description: <input class= "form-control" type="text" name="description"/>
     Item Price: <input class= "form-control" type="text" name="price"/>
