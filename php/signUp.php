@@ -10,7 +10,7 @@
 
 // check if username is already taken
  $userName = $_POST['userName'];
- $signUpURL = '/signUp.html';
+ $signUpURL = '../signUp.html';
 //call stored proc to get list of all usernames
   $result = mysqli_query($con, "CALL get_all_usernames();") or die("Stored Procedure Query failed: " . mysqli_error($con));
   //loop the result set
@@ -39,7 +39,7 @@ foreach($required_fields as $field) {
 }
 
  $con = new mysqli($SERVER, $USERNAME, $PASSWORD, $DATABASE);
-$loginURL = '/index.html'; 
+$loginURL = '../index.html'; 
  // Form the SQL query (an INSERT query)
  $sql="INSERT INTO user (user_name, password, name, age, email)
  VALUES
