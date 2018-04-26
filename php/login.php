@@ -37,7 +37,7 @@
   if($stmt->num_rows>0){
   
  }else{
-  $loginURL = '/index.html'; 
+  $loginURL = '../index.html'; 
   echo '<script language="javascript">';
   echo 'alert("Invalid username or password");';
   echo 'window.location = "'.$loginURL.'";';
