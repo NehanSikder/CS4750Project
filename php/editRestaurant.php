@@ -113,7 +113,7 @@
       <input type="hidden" name="userName" value="<?php echo $userName;?>">
       <input type="hidden" name="password" value="<?php echo $password;?>">
       <input type="hidden" name="update" value="update">
-      <button class="btn btn-success" type="submit" value="Edit Restaurant">Edit Restaurant</button>
+      <button class="btn btn-success" type="submit" value="Edit Restaurant">Finish Editing Restaurant</button>
     </form>
     <form action="addItems.php" method="post">
       <input type="hidden" name="user_id" value="<?php echo $user_id;?>">
